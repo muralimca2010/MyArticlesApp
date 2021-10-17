@@ -2,8 +2,8 @@ package com.myarticlesapp
 
 import android.app.Application
 import androidx.multidex.MultiDex
-import com.android.post.di.module.AppModule
-import com.android.post.di.module.NetworkModule
+import com.myarticlesapp.di.module.AppModule
+import com.myarticlesapp.di.module.NetworkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin

@@ -9,9 +9,9 @@ import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.android.post.databinding.ActivityMainBinding
-import com.android.post.utils.isNetworkAvailable
-import kotlinx.android.synthetic.main.activity_Main.*
+import com.myarticlesapp.databinding.ActivityMainBinding
+import com.myarticlesapp.utils.isNetworkAvailable
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.android.viewmodel.ext.android.viewModel
 import com.myarticlesapp.R
@@ -19,18 +19,18 @@ import com.myarticlesapp.R
 class MainActivity : AppCompatActivity() {
 
     private lateinit var activityMainBinding: ActivityMainBinding
-    private var mAdapter: MainAdapter? = MainAdapter()
-    private val postViewModel: MainViewModel by viewModel()
+    private var mAdapter: ArticlesAdapter? = ArticlesAdapter()
+    private val articalsViewModel: ArticlesViewModel by viewModel()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_Main)
+        activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        activityMainBinding.MainRecyclerView.adapter = mAdapter
+        activityMainBinding.postsRecyclerView.adapter = mAdapter
 
         if (isNetworkAvailable()) {
-            postViewModel.getMain()
+            articalsViewModel.getPosts()
         } else {
             Toast.makeText(
                 this,
@@ -39,10 +39,10 @@ class MainActivity : AppCompatActivity() {
             ).show()
         }
 
-        with(postViewModel) {
+        with(articalsViewModel) {
 
-            MainData.observe(this@MainActivity, Observer {
-                activityMainBinding.MainProgressBar.visibility = GONE
+            postsData.observe(this@MainActivity, Observer {
+                activityMainBinding.postsProgressBar.visibility = GONE
                 mAdapter?.mPostList = it
             })
 
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
             })
 
             showProgressbar.observe(this@MainActivity, Observer { isVisible ->
-                Main_progress_bar.visibility = if (isVisible) VISIBLE else GONE
+                posts_progress_bar.visibility = if (isVisible) VISIBLE else GONE
             })
         }
     }
