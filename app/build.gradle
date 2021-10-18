@@ -19,7 +19,7 @@ android {
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
 
-        buildConfigField 'String', 'BASE_URL', '"https://jsonplaceholder.typicode.com"'
+        buildConfigField 'String', 'BASE_URL', '"http://stagingapi.thehomeground.asia/api/v1/"'
     }
 
     buildTypes {
